@@ -1,0 +1,32 @@
+﻿@using MyDiplomProject.Models
+@model Profil
+@using (Ajax.BeginForm("EditUser","Home", null, new AjaxOptions { UpdateTargetId = "user-information-edit" }, new { @id = "user-information-edit", @class = "user-information-edit" }))
+{
+    <p>ПРОФИЛЬ</p>
+    <div class="user-information-item">
+        <p>Имя</p>
+        <input type="text" disabled="disabled" value="@Model.FirstName" class="item"  name="FirstName">
+    </div>
+    <div class="user-information-item">
+        <p>Фамилия</p>
+        <input type="text" disabled="disabled" value="@Model.LastName" class="item"  name="LastName">
+    </div>
+
+    <div class="user-information-item">
+        <p>Отчество</p>
+        <input type="text" disabled="disabled" value="@Model.MiddleName" class="item"  name="MiddleName">
+    </div>
+    <div class="user-information-item">
+        <p>Телефон</p>
+        <input type="text" disabled="disabled" value="@Model.Phone" class="item"  name="Phone">
+    </div>
+    <div class="user-information-item">
+        <p>E-mail</p>
+        <input type="text" disabled="disabled" value="@Model.EMail" class="item"  name="Email">
+    </div>
+
+    <div class="user-buttons">
+        <button id="submitEdit" type="submit"> Изменить</button>
+        <button id="cancellation" type="button">Отмена</button>
+    </div>
+}

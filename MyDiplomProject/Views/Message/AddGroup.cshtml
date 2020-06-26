@@ -1,0 +1,37 @@
+﻿@model List<Users>
+
+
+<p class="message-title">Воспитатели</p>
+<div class="add-group-cancellation">Назад</div>
+<div id="educators" class="group-items">
+    @foreach (var item in Model)
+    {
+        if (item.Role == "Educator")
+        {
+            <div class="groups-item" data-id="@item.UserId">
+                <div class="message-image">
+                    <img height="100%" src="@item.image" alt="" />
+                </div>
+                <p class="name-group">@item.FirstName @item.LastName</p>
+            </div>
+        }
+
+    }
+
+</div>
+<div class="message-title">Родители</div>
+<div id="parents" class="group-items ">
+    @foreach (var item in Model)
+    {
+        if (item.Role == "Parent")
+        {
+            <div class="groups-item" data-id="@item.UserId">
+                <div class="message-image">
+                    <img height="100%" src="@item.image" alt="" />
+                </div>
+                <p class="name-group">@item.FirstName @item.LastName</p>
+            </div>
+        }
+
+    }
+</div>

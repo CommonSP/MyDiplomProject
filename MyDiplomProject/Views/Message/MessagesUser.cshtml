@@ -1,0 +1,66 @@
+﻿@using MyDiplomProject.Models
+@model Message
+<div class="message-user">@Model.User.FirstName @Model.User.LastName</div>
+<div class="messages" id="messages" data-name-group="@Model.groupName">
+    <div class="messages-items">
+        @foreach (Messages message in Model.Messages)
+        {
+            if (User.Identity.Name == message.User.Login)
+            {
+                <div class="messages-item right">
+                    <div class="text">@message.Text</div>
+                    <div class="message-data">@message.Date.Hour:@message.Date.Minute</div>
+                </div>
+            }
+            else
+            {
+                <div class="messages-item left">
+                    <div class="text">@message.Text</div>
+                    <div class="message-data">@message.Date.Hour:@message.Date.Minute</div>
+                </div>
+            }
+
+        }
+
+    </div>
+</div>
+<div class="input-text">
+    <div class="input-text-message"
+         role="textbox"
+         contenteditable="true"
+         aria-multiline="true"> </div>
+    <button class="send">Отправить</button>
+</div>
+
+<script>
+    var block = document.getElementById("messages");
+    block.scrollTop = block.scrollHeight;
+    var chat = $.connection.chatHub;
+
+    chat.client.message = function (message, date) {
+        $('.messages-items').append('<div class="messages-item left"><div class="text">' + message + '</div><div class="message-data">' + date + '</div></div>');
+        var block = document.getElementById("messages");
+        block.scrollTop = block.scrollHeight;
+    };
+
+    $.connection.hub.start().done(function () {
+        $(document).on('click', '.send', function () {
+            var now = new Date();
+            var text = $(".input-text-message")[0].outerText;
+            console.log($(".input-text-message"));
+            if (text != "")
+            {
+                chat.server.sendMessage(text,$(".messages")[0].dataset.nameGroup,'@Model.UserId');
+                $(".input-text-message")[0].textContent = ''; 
+                $('.messages-items').append('<div class="messages-item right"><div class="text">'+text+'</div><div class="message-data">'+now.getHours().toString()+':'+now.getMinutes().toString()+'</div></div>');
+                var block = document.getElementById("messages");
+                block.scrollTop = block.scrollHeight;
+            } 
+        });
+
+        var id = $(".messages")[0].dataset.nameGroup;
+        chat.server.joinGroup(id);
+    });
+</script>
+
+

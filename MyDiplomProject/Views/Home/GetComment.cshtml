@@ -1,0 +1,11 @@
+﻿@using MyDiplomProject.Entityes
+@model Comments
+<div class="comments">Комментарий</div>
+@if (ViewBag.Comment == null)
+{
+    <div class="comment">@Model.Comment</div>
+}
+else
+{
+    <div class="comment">@ViewBag.comment</div>
+}

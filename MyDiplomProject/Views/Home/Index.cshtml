@@ -1,0 +1,114 @@
+﻿@using MyDiplomProject.Models
+@model Home
+@{
+    ViewBag.Title = "Главная";
+}
+
+<div class="home">
+    <div id="home-date" class="home-element">
+        
+    </div>
+    <div id="home-schedules" class="home-element">
+
+        @Html.Action("GetSchedules", "Home", new {dateValue=DateTime.Now.ToShortDateString()})
+    </div>
+    <div id ="home-menu"class="home-element">
+        
+            @Html.Action("GetMenus", "Home" , new {dateValue=DateTime.Now.ToShortDateString(), mode="Завтрак"})
+        
+    </div>
+    <div id="home-comments" class="home-element">
+        @Html.Action("GetComment", "Home", new { dateValue=DateTime.Now.ToShortDateString() })
+    </div>
+</div>
+<script src="~/Content/site/scripts/jquery-3.5.1.min.js"></script>
+<script src="~/Scripts/date.format.js"></script>
+<script>
+    Date.prototype.format = function (mask, utc) {
+         return dateFormat(this, mask, utc);
+    };
+
+    var date = new Date();
+    var dateValue=date.format("dd.mm.yyyy");
+     var i = 0; 
+    GetHomeDate(date);
+    $(document).on('click', '.back-date', function(){
+        date.setDate(date.getDate() - 1);
+        GetHomeDate(date);
+         dateValue = date.format("dd.mm.yyyy");
+        $('#home-schedules').load(('/Home/GetSchedules?dateValue=' + dateValue))
+        $('#home-menu').load(('/Home/GetMenus?dateValue=' + dateValue+'&mode=Завтрак'))
+        $('#home-comments').load(('/Home/GetComment?dateValue=' + dateValue))
+        
+    });
+    $(document).on('click', '.next-date', function(){
+        date.setDate(date.getDate() + 1);
+        GetHomeDate(date);
+        dateValue = date.format("dd.mm.yyyy");
+        $('#home-schedules').load(('/Home/GetSchedules?dateValue=' + dateValue))
+        $('#home-menu').load(('/Home/GetMenus?dateValue=' + dateValue+'&mode=Завтрак'))
+        $('#home-comments').load(('/Home/GetComment?dateValue=' + dateValue))
+    });
+    function GetHomeDate(date) {
+    
+    var dateNext = new Date();
+    var dateBack = new Date();
+    dateNext.setDate(date.getDate() + 1);
+    dateBack.setDate(date.getDate() - 1);
+    
+    $('#home-date').html('<div class="home-name-group">@Model.groupName</div>'+
+        '<div class="home-date">'+
+            '<div class="home-date-name">'+GetWeedDay(date) +'</div>'+
+            '<div class="home-date-week">'+date.getDate() +'</div>'+
+            '<div class="home-date-year">'+GetMonth(date)+', '+date.getFullYear().toString() +'</div>'+
+        '</div>'+
+        '<div class="home-select-date">'+
+            '<div class="back-date home-date-size">'+
+                '<img src="/Content/site/images/back.png" height="40%" alt="" />'+
+            '</div>'+
+            '<div class="date-back home-date-size">'+GetWeedDayMin(dateBack) +' '+ dateBack.getDate().toString()+'</div>'+
+            '<div class="date-main home-date-size date-home-color">'+GetWeedDayMin(date) +' '+ date.getDate().toString()+'</div>'+
+            '<div class="date-next home-date-size">'+GetWeedDayMin(dateNext) +' '+ dateNext.getDate().toString()+'</div>'+
+            '<div class="next-date home-date-size">'+
+                '<img src="/Content/site/images/back.png" class="next" height="40%" alt="" />'+
+            '</div>'+
+        '</div>');
+    }
+    $(document).on('click', '.back-menu', function () {
+        i--;
+        if (i < 0) {
+            i = 2
+        }
+        $('#home-menu').load(('/Home/GetMenus?dateValue=' + dateValue+'&mode='+GetMenu(i)))
+        
+    });
+    $(document).on('click', '.next-menu', function () {
+        i++;
+        if (i > 2) {
+            i = 0
+        }
+        $('#home-menu').load(('/Home/GetMenus?dateValue=' + dateValue+'&mode='+GetMenu(i)))
+        
+    });
+    
+    function GetWeedDay(date) {
+      
+        let weed = ['Воскресенье','Понедельник', 'Вториник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
+        return weed[date.getDay()];
+    }
+    function GetWeedDayMin(date) {
+        
+        let weed = ['ВС','ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ' ]
+        return weed[date.getDay()];
+    }
+    function GetMonth(date) {
+        let month = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+        return month[date.getMonth()];
+    }
+    function GetMenu(i) {
+        let menu = ['Завтрак', 'Обед', 'Полдник']
+        return menu[i];
+    }
+    
+</script>
+

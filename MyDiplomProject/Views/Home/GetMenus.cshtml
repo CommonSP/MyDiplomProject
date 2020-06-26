@@ -1,0 +1,40 @@
+﻿@using MyDiplomProject.Models
+@model List<EatMenus>
+
+@if (ViewBag.Menus == null)
+{
+    
+    <div class="home-menu">Меню</div>
+    <div class="home-select-menu">
+        <div class="back-menu home-menu-size">
+            <img src="~/Content/site/images/back.png" class="menu-image" height="60%" alt="" />
+        </div>
+        <div class="main-menu home-menu-size ">@ViewBag.Mode</div>
+        <div class="next-menu home-menu-size">
+            <img src="~/Content/site/images/back.png" class="menu-image next" height="60%" alt="" />
+        </div>
+    </div>
+    <div class="menu-items">
+        @foreach (var item in Model)
+        {
+            if (item.Mod == ViewBag.Mode)
+            {
+                <div class="menu-item">@item.Eat</div>
+
+            }
+        }
+    </div>
+}
+else
+{
+    <div class="home-menu">Меню</div>
+    
+    <div class="menu-items">
+        <div class="menu-item">@ViewBag.Menus</div>
+    </div>
+
+    
+}
+
+
+

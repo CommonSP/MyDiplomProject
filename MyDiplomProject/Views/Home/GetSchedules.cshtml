@@ -1,0 +1,20 @@
+﻿@using MyDiplomProject.Models
+@model List<Schedules>
+
+    <div class="home-shedules">Расписание</div>
+    <div class="home-shedules-items">
+        @if (ViewBag.Schedules == null)
+        {
+            foreach (var item in Model)
+            {
+                <div class="date-shedule">@item.Start</div>
+                <div class="shedule">@item.Event</div>
+            }
+        }
+        else
+        {
+            <div class="shedule">@ViewBag.Schedules</div>
+        }
+
+    </div>
+

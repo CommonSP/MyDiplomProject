@@ -1,0 +1,52 @@
+﻿@model List<ChatRooms>
+<p class="message-title">Сообщения</p>
+<div class="message-items">
+    @foreach (ChatRooms chat in Model)
+    {
+        if (chat.UserInChatRoom.First().User.Login != User.Identity.Name)
+        {
+            <div data-id="@chat.NameRoom" class="message-item">
+                <div class="message-image"><img height="100%" src="@chat.UserInChatRoom.First().User.image" alt=""></div>
+                <div class="message-context">
+                    <p class="name-message">@chat.UserInChatRoom.First().User.FirstName @chat.UserInChatRoom.First().User.LastName </p>
+                    @if (chat.Messages.Last().User.Login != User.Identity.Name)
+                    {
+                        <p class="text-message">@chat.Messages.Last().Text</p>
+                    }
+                    else
+                    {
+                        <div class="text-message-user">
+                            <div class="message-image-user"><img height="100%" src="@chat.Messages.Last().User.image" alt=""></div>
+                            <p class="text-message">@chat.Messages.Last().Text</p>
+                        </div>
+                    }
+                </div>
+                <div class="date-message">@chat.Messages.Last().Date.Hour:@chat.Messages.Last().Date.Minute </div>
+            </div>
+        }
+        else
+        {
+            <div data-id="@chat.NameRoom" class="message-item">
+                <div class="message-image"><img height="100%" src="@chat.UserInChatRoom.Last().User.image" alt=""></div>
+                <div class="message-context">
+                    <p class="name-message">@chat.UserInChatRoom.Last().User.FirstName @chat.UserInChatRoom.Last().User.LastName </p>
+                    @if (chat.Messages.Last().User.Login != User.Identity.Name)
+                    {
+                        <p class="text-message">@chat.Messages.Last().Text</p>
+                    }
+                    else
+                    {
+                        <div class="text-message-user">
+                            <div class="message-image-user"><img height="100%" src="@chat.Messages.Last().User.image" alt=""></div>
+                            <p class="text-message">@chat.Messages.Last().Text</p>
+                        </div>
+                    }
+                </div>
+                <div class="date-message">@chat.Messages.Last().Date.Hour:@chat.Messages.Last().Date.Minute </div>
+            </div>
+        }
+
+    }
+</div>
+
+

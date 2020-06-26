@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Галерея";
+}
+
+<div class="galary-content">
+    <div class="add-file">
+        <input type="file" name="file" id="file" class="input-file">
+        <label for="file" class="btn-tertiary">Загрузить фото</label>
+    </div>
+
+    <div class="galery">
+
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+        <div class="card-image"><img src="~/Content/site/images/site.jpg" height="100%" alt=""></div>
+    </div>
+</div>
+<div class="add-image-group">
+    <div class="add-image-group-container">
+        @using (Html.BeginForm("Upload", "Image", FormMethod.Post, new { enctype = "multipart/form-data" , @class="add-image-form"}))
+        {
+            <input type="file" name="file" id="file" class="input-file">
+            <label for="file" class="btn btn-tertiary js-labelFile">
+                <i class="icon fa fa-check"></i>
+                <span class="js-fileName">Выбрать фото</span>
+            </label>
+            <button class="submit-image" type="submit">Загрузить</button>
+        }
+        </div>
+</div>   
+

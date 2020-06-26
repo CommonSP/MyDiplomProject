@@ -1,0 +1,27 @@
+﻿@model List<ChatRooms>
+
+    
+
+        @foreach (ChatRooms item in Model)
+        {
+            if (item.UserInChatRoom.First().User.Login != Context.User.Identity.Name)
+            {
+                <div  data-id="@item.NameRoom" class="groupsleft">
+                    <div class="message-image image">
+                        <img height="100%" src="@item.UserInChatRoom.First().User.image" alt="" />
+                    </div>
+                    <p class="name-group">@item.UserInChatRoom.First().User.FirstName @item.UserInChatRoom.First().User.LastName</p>
+                </div>
+            }
+            else
+            {
+                <div data-id="@item.NameRoom" class="groupsleft">
+                    <div class="message-image image">
+                        <img height="100%" src="@item.UserInChatRoom.Last().User.image" alt="" />
+                    </div>
+                    <p class="name-group">@item.UserInChatRoom.Last().User.FirstName @item.UserInChatRoom.Last().User.LastName</p>
+                </div>
+            }
+        }
+
+    
